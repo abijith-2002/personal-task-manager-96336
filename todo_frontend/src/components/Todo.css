@@ -1,0 +1,190 @@
+/* Canvas */
+.todo-canvas {
+  width: var(--space-960);
+  height: var(--space-540);
+  margin: 0 auto;
+  position: relative;
+  background: var(--color-0f0f0f); /* style_0 background */
+  overflow: hidden;
+}
+
+/* Header (style_1 rectangle) */
+.todo-header {
+  height: var(--space-98);
+  display: block;
+  background: var(--color-1a1a1a);
+  border: 1px solid var(--color-2a2a2a);
+}
+
+.todo-header__content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Figma x offset for header text group: 76px (from screen left) */
+  padding-left: 76px;
+}
+
+/* Header texts inherit typography via ds-* utility classes in common.css */
+.todo-title {
+  /* ds-heading applied via className in JSX */
+}
+
+.todo-subtitle {
+  /* ds-subtext applied via className in JSX */
+  margin-top: 6px; /* visual spacing between heading and subtext */
+}
+
+/* Tasks area: compute from Figma */
+.todo-tasks {
+  /* From Figma: first task top is 141px from screen top; header is 98px tall -> gap ~43.8667px */
+  margin-top: var(--space-43-8667);
+  /* From Figma: first task left ~218px from screen left */
+  margin-left: 218px;
+  width: var(--space-525);
+}
+
+/* Task row (style_5 rectangle) */
+.task-item {
+  width: var(--space-525);
+  height: var(--space-74);
+  display: grid;
+  grid-template-columns: 32px 1fr 12px; /* left padding column, content, right icon col width ~10.36 + balance */
+  align-items: center;
+  background: var(--color-1a1a1a);
+  border: 1px solid var(--color-2a2a2a);
+  border-radius: var(--radius-25);
+  position: relative;
+  color: var(--color-ffffff);
+}
+
+.task-item + .task-item {
+  margin-top: 18px; /* visual spacing between rows, approximates Figma deltas */
+}
+
+/* Left decoration column (contains status dot), aligns with 32px left inset in Figma */
+.task-item__left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Status dot (Ellipse 1) */
+.status-dot {
+  width: var(--space-16);
+  height: var(--space-16);
+  border-radius: 50%;
+  border: 2px solid var(--color-bb86fc); /* style_6 */
+  background: transparent;
+  position: relative;
+  padding: 0; /* ensure it's visually circular */
+}
+
+/* Remove default button styles for dot */
+.status-dot {
+  background-clip: padding-box;
+}
+
+.task-item.completed .status-dot {
+  background: var(--color-bb86fc); /* style_8 */
+  border-color: var(--color-bb86fc);
+}
+
+/* Check mark inside completed dot (Vector style) */
+.task-item.completed .status-dot::after {
+  content: "";
+  position: absolute;
+  /* Draw a check using a rotated border element */
+  width: 8px;
+  height: 4px;
+  border-left: 2px solid var(--color-000000);
+  border-bottom: 2px solid var(--color-000000);
+  transform: rotate(-45deg);
+  left: 3px;
+  top: 4px;
+}
+
+/* Task title text */
+.task-item__title {
+  /* ds-title-strong typography applied via common.css */
+  font-family: var(--typo-6-family);
+  font-size: var(--typo-6-size);
+  font-weight: var(--typo-6-weight);
+  line-height: var(--typo-6-line-height);
+  color: var(--typo-6-color);
+}
+
+/* Right-side small vector (style_7) */
+.task-item__right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 4px;
+}
+
+.more-vector {
+  width: var(--space-10-3607);
+  height: var(--space-10-3607);
+  background: var(--color-696969); /* style_7 background */
+  border-radius: 2px;
+}
+
+/* Completed text color variation (optional subtle emphasis) */
+.task-item.completed .task-item__title {
+  color: var(--color-78cfb0);
+}
+
+/* Floating "Add" button (style_3 rectangle with inner vector) */
+.fab {
+  position: absolute;
+  right: var(--space-25); /* from Figma calc: 25px */
+  bottom: var(--space-25); /* from Figma calc: 25px */
+  width: var(--space-70);
+  height: var(--space-70);
+  background: var(--color-bb86fc);
+  border-radius: var(--radius-25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+}
+
+.fab:active {
+  transform: translateY(0);
+}
+
+/* Plus icon (Vector, 17.7333px square, black lines) */
+.fab__plus {
+  position: relative;
+  width: var(--space-17-7333);
+  height: var(--space-17-7333);
+}
+
+.fab__plus::before,
+.fab__plus::after {
+  content: "";
+  position: absolute;
+  background: var(--color-000000);
+}
+
+.fab__plus::before {
+  /* vertical bar */
+  width: 2px;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.fab__plus::after {
+  /* horizontal bar */
+  height: 2px;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}

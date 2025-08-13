@@ -1,0 +1,167 @@
+:root {
+  /* Colors (from design system) */
+  --color-0f0f0f: #0f0f0f;
+  --color-1a1a1a: #1a1a1a;
+  --color-2a2a2a: #2a2a2a;
+  --color-ffffff: #ffffff;
+  --color-bb86fc: #bb86fc;
+  --color-000000: #000000;
+  --color-696969: #696969;
+  --color-0d0714: #0d0714;
+  --color-1d1825: #1d1825;
+  --color-15101c: #15101c;
+  --color-9e78cf: #9e78cf;
+  --color-78cfb0: #78cfb0;
+  --color-777777: #777777;
+  --color-3e1671: #3e1671;
+
+  /* Typography tokens (only those used by this screen) */
+  /* typo_4 */
+  --typo-4-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --typo-4-size: 24px;
+  --typo-4-weight: 400;
+  --typo-4-line-height: 29.045454px;
+  --typo-4-letter-spacing: 0;
+  --typo-4-color: var(--color-ffffff);
+
+  /* typo_5 */
+  --typo-5-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --typo-5-size: 12px;
+  --typo-5-weight: 400;
+  --typo-5-line-height: 14.522727px;
+  --typo-5-letter-spacing: 0;
+  --typo-5-color: var(--color-ffffff);
+
+  /* typo_6 */
+  --typo-6-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --typo-6-size: 16px;
+  --typo-6-weight: 700;
+  --typo-6-line-height: 19.363636px;
+  --typo-6-letter-spacing: 0;
+  --typo-6-color: var(--color-ffffff);
+
+  /* Spacing tokens (subset used in this screen; exact values preserved) */
+  --space-8: 8px;
+  --space-10-3607: 10.360703px; /* vector size */
+  --space-12-3759: 12.375923px;
+  --space-16: 16px;
+  --space-17: 17px;
+  --space-17-1429: 17.142857px;
+  --space-17-7333: 17.733334px; /* inner icon */
+  --space-22: 22px;
+  --space-24: 24px;
+  --space-25: 25px; /* common radius and offsets */
+  --space-28: 28px;
+  --space-30: 30px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-43-8667: 43.866669px; /* distance from header to first task */
+  --space-51: 51.000004px;
+  --space-64: 64px;
+  --space-67: 67px;
+  --space-70: 70px; /* add button size */
+  --space-74: 74px; /* task row height */
+  --space-95: 95px;
+  --space-98: 98px; /* header height */
+  --space-221: 221px;
+  --space-293: 293px;
+  --space-343-1495: 343.149475px;
+  --space-525: 525px; /* task row width */
+  --space-540: 540px; /* screen height */
+  --space-960: 960px; /* screen width */
+
+  /* Border radius tokens */
+  --radius-5: 5px;
+  --radius-10: 10px;
+  --radius-20: 20px;
+  --radius-25: 25px;
+}
+
+/* Base reset and body styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-0f0f0f);
+  color: var(--color-ffffff);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.2;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap; /* added line */
+}
+
+/* Shared primitives reflecting design system styles */
+.ds-surface-1 {
+  background: var(--color-1a1a1a);
+  border: 1px solid var(--color-2a2a2a);
+}
+
+.ds-card {
+  background: var(--color-1a1a1a);
+  border: 1px solid var(--color-2a2a2a);
+  border-radius: var(--radius-25);
+}
+
+.ds-heading {
+  font-family: var(--typo-4-family);
+  font-size: var(--typo-4-size);
+  font-weight: var(--typo-4-weight);
+  line-height: var(--typo-4-line-height);
+  letter-spacing: var(--typo-4-letter-spacing);
+  color: var(--typo-4-color);
+  margin: 0;
+}
+
+.ds-subtext {
+  font-family: var(--typo-5-family);
+  font-size: var(--typo-5-size);
+  font-weight: var(--typo-5-weight);
+  line-height: var(--typo-5-line-height);
+  letter-spacing: var(--typo-5-letter-spacing);
+  color: var(--typo-5-color);
+  margin: 0;
+}
+
+.ds-title-strong {
+  font-family: var(--typo-6-family);
+  font-size: var(--typo-6-size);
+  font-weight: var(--typo-6-weight);
+  line-height: var(--typo-6-line-height);
+  letter-spacing: var(--typo-6-letter-spacing);
+  color: var(--typo-6-color);
+  margin: 0;
+}
+
+/* Generic button base */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Simple focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-bb86fc);
+  outline-offset: 2px;
+}
