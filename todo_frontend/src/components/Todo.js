@@ -39,9 +39,19 @@ export default function Todo() {
     );
   }, []);
 
+  const deleteTask = useCallback((id) => {
+    setTasks(prev => prev.filter(task => task.id !== id));
+  }, []);
+
   const addTask = useCallback(() => {
     setTasks(prev => {
-      const nextIndex = prev.length + 1;
+      // Ensure unique, increasing index even after deletions
+      const nextIndex =
+        prev.reduce((max, t) => {
+          const m = /(\d+)$/.exec(t.id);
+          return Math.max(max, m ? parseInt(m[1], 10) : 0);
+        }, 0) + 1;
+
       const id = `task_item_${nextIndex}`;
       return [
         ...prev,
@@ -88,7 +98,16 @@ export default function Todo() {
               {task.title}
             </div>
             <div className="task-item__right">
-              <div className="more-vector" aria-hidden="true" />
+              <button
+                type="button"
+                className="btn delete-btn"
+                aria-label={`Delete ${task.title}`}
+                title="Delete task"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteTask(task.id);
+                }}
+              />
             </div>
           </div>
         ))}

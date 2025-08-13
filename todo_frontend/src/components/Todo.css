@@ -49,13 +49,17 @@
   width: var(--space-525);
   height: var(--space-74);
   display: grid;
-  grid-template-columns: 32px 1fr 12px; /* left padding column, content, right icon col width ~10.36 + balance */
+  /* Align to Figma: 32px left inset, 16px dot, small right control area */
+  grid-template-columns: var(--space-16) 1fr var(--space-22);
+  column-gap: var(--space-12-3759);
   align-items: center;
   background: var(--color-1a1a1a);
   border: 1px solid var(--color-2a2a2a);
   border-radius: var(--radius-25);
   position: relative;
   color: var(--color-ffffff);
+  padding-left: var(--space-32);
+  padding-right: var(--space-16);
 }
 
 .task-item + .task-item {
@@ -66,7 +70,7 @@
 .task-item__left {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* anchor dot to the left edge of the 16px column */
 }
 
 /* Status dot (Ellipse 1) */
@@ -78,13 +82,10 @@
   background: transparent;
   position: relative;
   padding: 0; /* ensure it's visually circular */
-}
-
-/* Remove default button styles for dot */
-.status-dot {
   background-clip: padding-box;
 }
 
+/* Completed state */
 .task-item.completed .status-dot {
   background: var(--color-bb86fc); /* style_8 */
   border-color: var(--color-bb86fc);
@@ -114,19 +115,52 @@
   color: var(--typo-6-color);
 }
 
-/* Right-side small vector (style_7) */
+/* Right-side control area */
 .task-item__right {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 4px;
 }
 
-.more-vector {
-  width: var(--space-10-3607);
-  height: var(--space-10-3607);
-  background: var(--color-696969); /* style_7 background */
-  border-radius: 2px;
+/* Delete (close) button replacing the placeholder "more" square */
+.delete-btn {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-5);
+  opacity: 0.8;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+/* Draw the "X" */
+.delete-btn::before,
+.delete-btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  background: var(--color-696969);
+  transform-origin: center;
+  translate: -50% -50%;
+}
+
+.delete-btn::before {
+  transform: rotate(45deg);
+}
+
+.delete-btn::after {
+  transform: rotate(-45deg);
+}
+
+.delete-btn:hover {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+.delete-btn:active {
+  transform: scale(1.0);
 }
 
 /* Completed text color variation (optional subtle emphasis) */
