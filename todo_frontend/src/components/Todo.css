@@ -1,19 +1,21 @@
-/* Canvas */
+ /* Canvas occupies full viewport and arranges children (header, list, footer) */
 .todo-canvas {
-  width: var(--space-960);
-  height: var(--space-540);
-  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
   position: relative;
   background: var(--color-0f0f0f); /* style_0 background */
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* contain list scroll only in middle area */
 }
 
-/* Header (style_1 rectangle) */
+/* Header (style_1 rectangle) stays fixed height at top */
 .todo-header {
-  height: var(--space-98);
+  flex: 0 0 var(--space-98);
   display: block;
   background: var(--color-1a1a1a);
-  border: 1px solid var(--color-2a2a2a);
+  border-bottom: 1px solid var(--color-2a2a2a);
 }
 
 .todo-header__content {
@@ -35,13 +37,20 @@
   margin-top: 6px; /* visual spacing between heading and subtext */
 }
 
-/* Tasks area: compute from Figma */
+/* Tasks area: scrollable middle region between header and footer */
 .todo-tasks {
   /* From Figma: first task top is 141px from screen top; header is 98px tall -> gap ~43.8667px */
-  margin-top: var(--space-43-8667);
-  /* From Figma: first task left ~218px from screen left */
-  margin-left: 218px;
-  width: var(--space-525);
+  flex: 1 1 auto;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+
+  /* Keep original visual offsets while allowing full-width scrolling container */
+  padding-top: var(--space-43-8667);
+  padding-left: 218px;
+  padding-right: var(--space-25);
+  padding-bottom: var(--space-25);
+  width: 100%;
 }
 
 /* Task row (style_5 rectangle) */
@@ -168,11 +177,29 @@
   color: var(--color-78cfb0);
 }
 
-/* Floating "Add" button (style_3 rectangle with inner vector) */
+/* Footer sticks to bottom with fixed height */
+.todo-footer {
+  flex: 0 0 var(--space-64);
+  background: var(--color-1a1a1a);
+  border-top: 1px solid var(--color-2a2a2a);
+  display: flex;
+  align-items: center;
+}
+
+.todo-footer__content {
+  width: 100%;
+  padding-left: 76px; /* align with header content */
+  padding-right: var(--space-25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Floating "Add" button (style_3) stays visible above footer */
 .fab {
   position: absolute;
-  right: var(--space-25); /* from Figma calc: 25px */
-  bottom: var(--space-25); /* from Figma calc: 25px */
+  right: var(--space-25);
+  bottom: calc(var(--space-25) + var(--space-64)); /* lift above footer */
   width: var(--space-70);
   height: var(--space-70);
   background: var(--color-bb86fc);

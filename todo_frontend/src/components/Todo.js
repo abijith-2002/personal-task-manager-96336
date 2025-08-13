@@ -15,9 +15,12 @@ const initialTasks = [
 // PUBLIC_INTERFACE
 export default function Todo() {
   /**
-   * This React component renders the Todo screen extracted from Figma,
-   * including header, task list, and a floating add button. It ports the
-   * interactions from assets/app.js to React: toggling completion and adding tasks.
+   * This React component renders the Todo screen extracted from Figma
+   * updated to fill the entire viewport. The layout uses a fixed header
+   * and footer with a scrollable task list in the middle area so that
+   * only the tasks scroll when there are many items.
+   *
+   * Interactions: toggle completion, delete task, add task.
    */
   const [tasks, setTasks] = useState(initialTasks);
 
@@ -61,7 +64,7 @@ export default function Todo() {
   }, []);
 
   return (
-    <main className="todo-canvas" role="main" aria-label="Todo Screen">
+    <section className="todo-canvas" aria-label="Todo Screen">
       {/* Header */}
       <header className="todo-header">
         <div className="todo-header__content">
@@ -72,7 +75,7 @@ export default function Todo() {
         </div>
       </header>
 
-      {/* Tasks */}
+      {/* Tasks (scrollable area) */}
       <section className="todo-tasks" aria-label="Task list">
         {tasks.map(task => (
           <div
@@ -113,7 +116,14 @@ export default function Todo() {
         ))}
       </section>
 
-      {/* Floating Add Button */}
+      {/* Footer (fixed) */}
+      <footer className="todo-footer" aria-label="Todo footer">
+        <div className="todo-footer__content">
+          <span className="ds-subtext">{summaryText}</span>
+        </div>
+      </footer>
+
+      {/* Floating Add Button (stays visible; positioned above footer) */}
       <button
         type="button"
         className="fab btn"
@@ -123,6 +133,6 @@ export default function Todo() {
       >
         <span className="fab__plus" aria-hidden="true" />
       </button>
-    </main>
+    </section>
   );
 }
